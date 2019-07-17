@@ -18,11 +18,17 @@ impl Cat {
 }
 
 struct Arguments {
-
+     stream:bool
+     show: bool
 }
 
 fn parse_args(args: Vec<String>) -> Option<Arguments> {
+    let mut args = Arguments
+    if args.len() == 0 {
+        args.stream = true
+    }
     
+    Ok(args)
 }
 fn main() {
     let args: Vec<String> = env::args().collect();
