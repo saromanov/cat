@@ -1,19 +1,28 @@
 use std::io::Read;
 use std::io::BufRead;
 use std::env;
+use std::
 
-struct cat {
+struct Cat {
 
 }
 
-impl cat {
+impl Cat {
     fn version(self) -> &'static str {
-        return "0.0.1"
+        "0.0.1"
     }
 
     fn read(self, name: &str) {
-
+        
     }
+}
+
+struct Arguments {
+
+}
+
+fn parse_args(args: Vec<String>) -> Option<Arguments> {
+    
 }
 fn main() {
     let args: Vec<String> = env::args().collect();
