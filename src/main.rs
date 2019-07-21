@@ -1,11 +1,8 @@
 use std::io::Read;
 use std::io::BufRead;
 use std::env;
-use std::
 
-struct Cat {
-
-}
+struct Cat;
 
 impl Cat {
     fn version(self) -> &'static str {
@@ -16,19 +13,19 @@ impl Cat {
         
     }
 }
-
+#[derive(Default)]
 struct Arguments {
-     stream:bool
+     stream:bool,
      show: bool
 }
 
 fn parse_args(args: Vec<String>) -> Option<Arguments> {
-    let mut args = Arguments
+    let mut result = Arguments{..Default::default()};
     if args.len() == 0 {
-        args.stream = true
+        result.stream = true
     }
     
-    Ok(args)
+   Some(result)
 }
 fn main() {
     let args: Vec<String> = env::args().collect();
