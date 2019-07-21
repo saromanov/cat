@@ -21,11 +21,13 @@ struct Arguments {
 
 fn parse_args(args: Vec<String>) -> Option<Arguments> {
     let mut result = Arguments{..Default::default()};
-    if args.len() == 0 {
-        result.stream = true
+    let size = args.len();
+    match size {
+        1 => result.stream = true,
+        2 => result.show = true,
+        _ => return None
     }
-    
-   Some(result)
+    Some(result)
 }
 fn main() {
     let args: Vec<String> = env::args().collect();
