@@ -4,21 +4,11 @@ use std::env;
 use std::fs;
 use std::io::{BufReader, Write};
 use std::mem;
-struct Cat;
 
-impl Cat {
-    fn version(self) -> &'static str {
-        "0.0.1"
-    }
-
-    fn read(self, name: &str) {
-        
-    }
-}
 #[derive(Default)]
 struct Arguments {
      stream:bool,
-     show: bool
+     show: bool,
 }
 
 fn read_file(path:&str){
@@ -39,13 +29,16 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
     Some(result)
 }
 
+fn version(self) -> &'static str {
+    "0.0.1"
+}
 
 fn main() {
     let result = parse_args(env::args().collect());
     match result {
         Some(data) => {
             if data.show {
-                println!("YES")
+                read_file()
             }
         }
         None => println!("Unable to parse arguments")
