@@ -23,13 +23,18 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
     let size = args.len();
     match size {
         1 => result.stream = true,
-        2 => result.show = true,
+        2 => {
+            match args[1] {
+                "-v" => version(),
+                _ => result.show = true
+            }
+        }
         _ => return None
     }
     Some(result)
 }
 
-fn version(self) -> &'static str {
+fn version() -> &'static str {
     "0.0.1"
 }
 
