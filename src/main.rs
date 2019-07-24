@@ -9,6 +9,7 @@ use std::mem;
 struct Arguments {
      stream:bool,
      show: bool,
+     file_name: String
 }
 
 fn read_file(path:&str){
@@ -24,9 +25,14 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
     match size {
         1 => result.stream = true,
         2 => {
-            match args[1].as_str() {
+            let param = args[1].as_str();
+            match param {
                 "-v" => version(),
-                _ => result.show = true
+                _ => {
+                    result.show = true;
+                    result.file_name = param.to_string();
+                    "return"
+                }
             };
         }
         _ => return None
@@ -43,7 +49,7 @@ fn main() {
     match result {
         Some(data) => {
             if data.show {
-                read_file()
+                read_file(data.file_name.as_str())
             }
         }
         None => println!("Unable to parse arguments")
