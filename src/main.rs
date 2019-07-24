@@ -24,10 +24,10 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
     match size {
         1 => result.stream = true,
         2 => {
-            match args[1] {
+            match args[1].as_str() {
                 "-v" => version(),
                 _ => result.show = true
-            }
+            };
         }
         _ => return None
     }
