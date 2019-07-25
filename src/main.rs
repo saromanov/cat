@@ -13,11 +13,9 @@ struct Arguments {
 }
 
 fn read_file(path:&str){
-    let mut f = BufReader::new(fs::File::open(path).unwrap());
-    let mut b: [u8; 4] = unsafe { mem::uninitialized() };
-    for _ in 0 .. 100_000_000 {
-        f.read_exact(&mut b).unwrap();
-    }
+  let contents = fs::read_to_string(path)
+        .expect("Something went wrong reading the file");
+  println!("{:?}", contents);
 }
 fn parse_args(args: Vec<String>) -> Option<Arguments> {
     let mut result = Arguments{..Default::default()};
