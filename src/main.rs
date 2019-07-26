@@ -2,7 +2,7 @@ use std::io::Read;
 use std::io::BufRead;
 use std::env;
 use std::fs;
-use std::io::{BufReader, Write};
+use std::io::{BufReader, Write, stdin, stdout};
 use std::mem;
 use std::io;
 
@@ -20,7 +20,9 @@ fn read_file(path:&str){
 }
 
 fn input_data() {
-    io::stdin().read_line();
+    let mut s=String::new();
+    let _=stdout().flush();
+    stdin().read_line(&mut s).expect("Did not enter a correct string");
 }
 fn parse_args(args: Vec<String>) -> Option<Arguments> {
     let mut result = Arguments{..Default::default()};
