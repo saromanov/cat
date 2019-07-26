@@ -4,6 +4,7 @@ use std::env;
 use std::fs;
 use std::io::{BufReader, Write};
 use std::mem;
+use std::io;
 
 #[derive(Default)]
 struct Arguments {
@@ -16,6 +17,10 @@ fn read_file(path:&str){
   let contents = fs::read_to_string(path)
         .expect("Something went wrong reading the file");
   println!("{:?}", contents);
+}
+
+fn input_data() {
+    io::stdin().read_line();
 }
 fn parse_args(args: Vec<String>) -> Option<Arguments> {
     let mut result = Arguments{..Default::default()};
@@ -48,6 +53,9 @@ fn main() {
         Some(data) => {
             if data.show {
                 read_file(data.file_name.as_str())
+            }
+            if data.stream {
+
             }
         }
         None => println!("Unable to parse arguments")
