@@ -17,8 +17,8 @@ struct Arguments {
 
 fn read_file(arg:Arguments) -> Result<()>{
     let file = File::open(arg.file_name.as_str())?;
-    for line in BufReader::new(file).lines() {
-        println!("{}", line?);
+    for (x,y) in BufReader::new(file).lines().enumerate(){
+        println!("{0} {1}", x, y?);
     }
     Ok(())
 }
