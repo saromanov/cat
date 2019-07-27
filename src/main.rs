@@ -10,11 +10,12 @@ use std::io;
 struct Arguments {
      stream:bool,
      show: bool,
+     display_lines: bool,
      file_name: String
 }
 
-fn read_file(path:&str){
-  let contents = fs::read_to_string(path)
+fn read_file(arg:Arguments){
+  let contents = fs::read_to_string(arg.file_name.as_str())
         .expect("Something went wrong reading the file");
   println!("{:?}", contents);
 }
@@ -33,6 +34,7 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
             let param = args[1].as_str();
             match param {
                 "-v" => version(),
+                "-n" => result.display_lines = true,
                 _ => {
                     result.show = true;
                     result.file_name = param.to_string();
@@ -54,7 +56,7 @@ fn main() {
     match result {
         Some(data) => {
             if data.show {
-                read_file(data.file_name.as_str())
+                read_file(data)
             }
             if data.stream {
 
