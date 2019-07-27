@@ -2,9 +2,10 @@ use std::io::Read;
 use std::io::BufRead;
 use std::env;
 use std::fs;
-use std::io::{BufReader, Write, stdin, stdout};
+use std::io::{BufReader, Write, stdin, stdout,Result};
 use std::mem;
 use std::io;
+use std::fs::File;
 
 #[derive(Default)]
 struct Arguments {
@@ -14,10 +15,12 @@ struct Arguments {
      file_name: String
 }
 
-fn read_file(arg:Arguments){
-  let contents = fs::read_to_string(arg.file_name.as_str())
-        .expect("Something went wrong reading the file");
-  println!("{:?}", contents);
+fn read_file(arg:Arguments) -> Result<()>{
+    let file = File::open(arg.file_name.as_str())?;
+    for line in BufReader::new(file).lines() {
+        println!("{}", line?);
+    }
+    Ok(())
 }
 
 fn input_data() {
@@ -59,12 +62,7 @@ fn main() {
     let result = parse_args(env::args().collect());
     match result {
         Some(data) => {
-            if data.show {
-                read_file(data)
-            }
-            if data.stream {
-
-            }
+            read_file(data);
         }
         None => println!("Unable to parse arguments")
     }
