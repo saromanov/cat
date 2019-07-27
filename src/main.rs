@@ -12,15 +12,22 @@ struct Arguments {
      stream:bool,
      show: bool,
      display_lines: bool,
+     non_blank: bool,
      file_name: String
 }
 
 fn read_file(arg:Arguments) -> Result<()>{
     let file = File::open(arg.file_name.as_str())?;
     for (x,y) in BufReader::new(file).lines().enumerate(){
-        println!("{0} {1}", x, y?);
+        output(arg, x, y)
     }
     Ok(())
+}
+
+fn output(arg: Arguments, x:usize, y: std::result::Result) {
+    if arg.display_lines {
+        println!("{0} {1}", x, y?)
+    }
 }
 
 fn input_data() {
