@@ -30,17 +30,21 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
     let size = args.len();
     match size {
         1 => result.stream = true,
-        2 => {
-            let param = args[1].as_str();
-            match param {
-                "-v" => version(),
-                "-n" => result.display_lines = true,
-                _ => {
-                    result.show = true;
-                    result.file_name = param.to_string();
-                    "return"
-                }
-            };
+        _ => {
+            for d in args {
+                match d.as_str() {
+                    "-v" => {
+                        version();
+                    }
+                    "-n" => {
+                        result.display_lines = true;
+                    }
+                     _ => {
+                        result.show = true;
+                        result.file_name = d.to_string();
+                    }
+                };
+            }
         }
         _ => return None
     }
