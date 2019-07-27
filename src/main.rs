@@ -7,7 +7,7 @@ use std::mem;
 use std::io;
 use std::fs::File;
 
-#[derive(Default)]
+#[derive(Default,Clone)]
 struct Arguments {
      stream:bool,
      show: bool,
@@ -16,18 +16,20 @@ struct Arguments {
      file_name: String
 }
 
-fn read_file(arg:Arguments) -> Result<()>{
+fn read_file(mut arg:Arguments) -> Result<()>{
     let file = File::open(arg.file_name.as_str())?;
     for (x,y) in BufReader::new(file).lines().enumerate(){
-        output(arg, x, y)
+        let args  = arg.clone();
+        output(args, x, y?)
     }
     Ok(())
 }
 
-fn output(arg: Arguments, x:usize, y: std::result::Result) {
+fn output(arg: Arguments, x:usize, y: String) {
     if arg.display_lines {
-        println!("{0} {1}", x, y?)
+        println!("{0} {1}", x, y);
     }
+    println!("{0}", y);
 }
 
 fn input_data() {
