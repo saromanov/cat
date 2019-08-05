@@ -72,7 +72,7 @@ fn main() {
     match result {
         Some(data) => {
             if data.stream {
-                while {
+                while true {
                     let mut s=String::new();
                     let _=stdout().flush();
                     stdin().read_line(&mut s).expect("Did not enter a correct string");
@@ -82,7 +82,7 @@ fn main() {
                     if let Some('\r')=s.chars().next_back() {
                         s.pop();
                     }
-                    println!(s)
+                    println!("{}", s)
                 }
             }
             read_file(data);
