@@ -27,6 +27,13 @@ fn read_file(mut arg:Arguments) -> Result<()>{
             let args  = arg.clone();
             output(args, x, y)
          }
+    } else {
+        for (x,y) in BufReader::new(file).lines()
+         .map(|line| line.unwrap())
+         .enumerate(){
+            let args  = arg.clone();
+            output(args, x, y)
+         }
     }
     Ok(())
 }
