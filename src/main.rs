@@ -13,6 +13,7 @@ struct Arguments {
      show: bool,
      display_lines: bool,
      non_blank: bool,
+     display_ends:bool,
      file_name: String
 }
 
@@ -26,10 +27,14 @@ fn read_file(mut arg:Arguments) -> Result<()>{
 }
 
 fn output(arg: Arguments, x:usize, y: String) {
-    if arg.display_lines {
-        println!("{0} {1}", x, y);
+    let mut res = y;
+    if arg.display_ends {
+        res = res.replace("\n", "$")
     }
-    println!("{0}", y);
+    if arg.display_lines {
+        println!("{0} {1}", x, res);
+    }
+    println!("{0}", res);
 }
 
 fn input_data() {
@@ -50,6 +55,9 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
                     }
                     "-n" => {
                         result.display_lines = true;
+                    }
+                    "-e" => {
+                        result.display_ends = true;
                     }
                      _ => {
                         result.show = true;
