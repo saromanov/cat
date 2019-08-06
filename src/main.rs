@@ -19,9 +19,14 @@ struct Arguments {
 
 fn read_file(mut arg:Arguments) -> Result<()>{
     let file = File::open(arg.file_name.as_str())?;
-    for (x,y) in BufReader::new(file).lines().enumerate(){
-        let args  = arg.clone();
-        output(args, x, y?)
+    if arg.display_nonblank {
+         for (x,y) in BufReader::new(file).lines()
+         .map(|line| line.unwrap())
+         .filter(|x| !x.is_empty())
+         .enumerate(){
+            let args  = arg.clone();
+            output(args, x, y)
+         }
     }
     Ok(())
 }
@@ -34,12 +39,7 @@ fn output(arg: Arguments, x:usize, y: String) {
     if arg.display_lines {
         println!("{0} {1}", x, res);
     }
-    if arg.display_nonblank {
-        if !res.is_empty() {
-            println!("{0} {1}", x, res);
-        }
-    }
-    println!("{0}", res);
+    println!("{0} {1}", x, res);
 }
 
 fn input_data() {
