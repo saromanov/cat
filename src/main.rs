@@ -12,7 +12,7 @@ struct Arguments {
      stream:bool,
      show: bool,
      display_lines: bool,
-     non_blank: bool,
+     display_nonblank: bool,
      display_ends:bool,
      file_name: String
 }
@@ -33,6 +33,11 @@ fn output(arg: Arguments, x:usize, y: String) {
     }
     if arg.display_lines {
         println!("{0} {1}", x, res);
+    }
+    if arg.display_nonblank {
+        if !res.is_empty() {
+            println!("{0} {1}", x, res);
+        }
     }
     println!("{0}", res);
 }
@@ -58,6 +63,9 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
                     }
                     "-e" => {
                         result.display_ends = true;
+                    }
+                    "-b" => {
+                        result.display_nonblank = true;
                     }
                      _ => {
                         result.show = true;
