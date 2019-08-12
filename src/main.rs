@@ -54,7 +54,7 @@ fn output(arg: Arguments, x:usize, y: String) {
     if arg.display_lines {
         println!("{0} {1}", x, res);
     }
-    println!("{0} {1}", x, res);
+    println!("{0}", res);
 }
 
 fn input_data() {
