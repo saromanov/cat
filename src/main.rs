@@ -14,7 +14,7 @@ struct Arguments {
      display_lines: bool,
      display_nonblank: bool,
      display_ends:bool,
-     file_name: String
+     file_name: String,
      sqeeze_blank:bool,
 }
 
@@ -43,6 +43,13 @@ fn output(arg: Arguments, x:usize, y: String) {
     let mut res = y;
     if arg.display_ends {
         res = res.replace("\n", "$")
+    }
+    if arg.sqeeze_blank {
+        if res.is_empty() {
+             res = "$".to_string()
+        } else {
+             res = res.replace("\n", "$")
+        }
     }
     if arg.display_lines {
         println!("{0} {1}", x, res);
@@ -74,6 +81,9 @@ fn parse_args(args: Vec<String>) -> Option<Arguments> {
                     }
                     "-b" => {
                         result.display_nonblank = true;
+                    }
+                    "-s" => {
+                        result.sqeeze_blank = true;
                     }
                      _ => {
                         result.show = true;
