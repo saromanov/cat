@@ -48,7 +48,7 @@ fn output(arg: Arguments, x:usize, y: String) {
         if res.is_empty() {
              res = "$".to_string()
         } else {
-             res = res.replace("\n", "$")
+             res = res + "$"
         }
     }
     if arg.display_lines {
