@@ -15,6 +15,7 @@ struct Arguments {
      display_nonblank: bool,
      display_ends:bool,
      file_name: String
+     sqeeze_blank:bool,
 }
 
 fn read_file(mut arg:Arguments) -> Result<()>{
