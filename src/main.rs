@@ -1,10 +1,6 @@
-use std::io::Read;
 use std::io::BufRead;
 use std::env;
-use std::fs;
 use std::io::{BufReader, Write, stdin, stdout,Result};
-use std::mem;
-use std::io;
 use std::fs::File;
 
 #[derive(Default,Clone)]
@@ -106,7 +102,7 @@ fn main() {
     match result {
         Some(data) => {
             if data.stream {
-                while true {
+                loop {
                     let mut s=String::new();
                     let _=stdout().flush();
                     stdin().read_line(&mut s).expect("Did not enter a correct string");
